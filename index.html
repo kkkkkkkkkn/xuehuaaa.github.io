@@ -3,645 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>山川随笔 - 个人博客</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            min-height: 100vh;
-        }
-
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -2;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(20, 30, 48, 0.85) 0%, rgba(36, 59, 85, 0.8) 100%);
-            backdrop-filter: blur(5px);
-            z-index: -1;
-        }
-
-        header {
-            background: rgba(20, 30, 48, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 65px;
-        }
-
-        .blog-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-
-        .blog-title span {
-            color: #64b5f6;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: #64b5f6;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #64b5f6;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 40px;
-        }
-
-        main {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        article {
-            margin-bottom: 50px;
-            padding-bottom: 50px;
-            border-bottom: 1px solid #eee;
-        }
-
-        article:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .article-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            color: #888;
-            font-size: 0.85rem;
-        }
-
-        .article-category {
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        article h2 {
-            font-size: 1.8rem;
-            color: #1a237e;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        article h2:hover {
-            color: #1976d2;
-        }
-
-        .article-image {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        article p {
-            color: #555;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-
-        .read-more {
-            display: inline-block;
-            background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
-            color: #fff;
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .read-more:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(66, 165, 245, 0.4);
-        }
-
-        aside {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .sidebar-widget {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .widget-title {
-            font-size: 1.1rem;
-            color: #1a237e;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e3f2fd;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .widget-title::before {
-            content: '';
-            width: 4px;
-            height: 18px;
-            background: #64b5f6;
-            border-radius: 2px;
-        }
-
-        .author-bio {
-            text-align: center;
-        }
-
-        .author-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid #e3f2fd;
-        }
-
-        .author-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1a237e;
-            margin-bottom: 8px;
-        }
-
-        .author-desc {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .social-links a {
-            width: 36px;
-            height: 36px;
-            background: #f5f5f5;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: #64b5f6;
-            color: #fff;
-        }
-
-        .popular-posts li {
-            list-style: none;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: padding-left 0.3s ease;
-        }
-
-        .popular-posts li:last-child {
-            border-bottom: none;
-        }
-
-        .popular-posts li:hover {
-            padding-left: 10px;
-            color: #1976d2;
-        }
-
-        .popular-posts li a {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .popular-posts li:hover a {
-            color: #1976d2;
-        }
-
-        .category-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .category-tags a {
-            background: #f5f5f5;
-            color: #666;
-            padding: 6px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .category-tags a:hover {
-            background: #64b5f6;
-            color: #fff;
-        }
-
-        footer {
-            background: rgba(20, 30, 48, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 20px;
-            margin-top: 40px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .footer-section h3 {
-            color: #fff;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p,
-        .footer-section li {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: #64b5f6;
-        }
-
-        .contact-info li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 992px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-
-            aside {
-                order: -1;
-            }
-
-            .sidebar-widget {
-                padding: 25px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 15px;
-            }
-
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 65px;
-                left: 0;
-                width: 100%;
-                background: rgba(20, 30, 48, 0.98);
-                flex-direction: column;
-                padding: 20px;
-                gap: 0;
-            }
-
-            nav ul li {
-                margin-bottom: 15px;
-            }
-
-            nav ul li:last-child {
-                margin-bottom: 0;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            main {
-                padding: 25px;
-            }
-
-            article h2 {
-                font-size: 1.5rem;
-            }
-
-            .article-image {
-                height: 200px;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .contact-info li {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-container {
-                padding: 20px 15px;
-            }
-
-            .blog-title {
-                font-size: 1.25rem;
-            }
-
-            main {
-                padding: 20px;
-            }
-
-            article h2 {
-                font-size: 1.3rem;
-            }
-
-            .article-image {
-                height: 160px;
-            }
-        }
-    </style>
+    <title>润泽的个人博客</title>
+    <!-- 外部 CSS 文件 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- marked.js CDN - 用于解析 Markdown 内容为 HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <div class="bg-container"></div>
-    <div class="bg-overlay"></div>
-
-    <header>
-        <div class="nav-container">
-            <a href="#" class="blog-title">山川<span>随笔</span></a>
-            <nav>
-                <ul id="nav-list">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#life">生活感悟</a></li>
-                    <li><a href="#travel">旅行游记</a></li>
-                    <li><a href="#tech">技术分享</a></li>
-                    <li><a href="#about">关于我</a></li>
-                </ul>
-            </nav>
-            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <main id="home">
-            <article>
-                <div class="article-meta">
-                    <span class="article-category">旅行游记</span>
-                    <span>2024年3月15日</span>
-                    <span>阅读 3.2k</span>
-                </div>
-                <h2>春日里的江南水乡</h2>
-                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80" alt="江南水乡" class="article-image">
-                <p>三月的江南，细雨如丝，薄雾轻笼。漫步在青石板路上，两旁是白墙黛瓦的老屋，门前的河水静静流淌，倒映着岸边的垂柳。乌篷船划过水面，留下一道道涟漪，仿佛时光在这里放慢了脚步。</p>
-                <p>在周庄的小巷中穿行，每一处转角都藏着惊喜。古老的石桥连接着两岸，桥上的行人来来往往，桥下的船只缓缓驶过。傍晚时分，灯笼亮起，整个古镇笼罩在温暖的光晕中，别有一番韵味。</p>
-                <a href="#" class="read-more">阅读更多</a>
-            </article>
-
-            <article>
-                <div class="article-meta">
-                    <span class="article-category">生活感悟</span>
-                    <span>2024年3月10日</span>
-                    <span>阅读 2.8k</span>
-                </div>
-                <h2>慢下来，感受生活的美好</h2>
-                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80" alt="慢生活" class="article-image">
-                <p>在这个快节奏的时代，我们总是忙碌着追赶时间，却忘记了停下脚步欣赏身边的风景。清晨的第一缕阳光，午后的一杯热茶，傍晚天边的晚霞，这些平凡而美好的瞬间，常常被我们忽略。</p>
-                <p>试着放慢脚步，用心感受生活中的点滴。在周末的午后，泡一壶茶，读一本书，让心灵得到放松。生活不只是赶路，更是要感受路途中的风景。</p>
-                <a href="#" class="read-more">阅读更多</a>
-            </article>
-
-            <article>
-                <div class="article-meta">
-                    <span class="article-category">技术分享</span>
-                    <span>2024年3月5日</span>
-                    <span>阅读 4.5k</span>
-                </div>
-                <h2>前端开发中的性能优化技巧</h2>
-                <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&q=80" alt="技术分享" class="article-image">
-                <p>在前端开发中，性能优化是一个永恒的话题。从代码层面到资源加载，从渲染优化到缓存策略，每一个环节都值得我们深入研究。本文将分享一些实用的性能优化技巧，帮助你的网站更快、更流畅。</p>
-                <p>包括图片优化、代码分割、懒加载、缓存策略等多个方面，通过这些技巧的组合应用，可以显著提升网页的加载速度和用户体验。</p>
-                <a href="#" class="read-more">阅读更多</a>
-            </article>
-        </main>
-
-        <aside>
-            <div class="sidebar-widget author-bio">
-                <h3 class="widget-title">关于作者</h3>
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="作者头像" class="author-avatar">
-                <div class="author-name">林清风</div>
-                <p class="author-desc">热爱生活，喜欢旅行，专注于前端开发。在这里分享生活感悟、旅行故事和技术心得。</p>
-                <div class="social-links">
-                    <a href="#" title="微博"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443z"/><circle cx="10.098" cy="10.999" r="2.892"/></svg></a>
-                    <a href="#" title="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
-                    <a href="#" title="邮箱"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-                </div>
-            </div>
-
-            <div class="sidebar-widget">
-                <h3 class="widget-title">热门文章</h3>
-                <ul class="popular-posts">
-                    <li><a href="#">2024年最值得去的10个地方</a></li>
-                    <li><a href="#">如何高效学习编程</a></li>
-                    <li><a href="#">冬日暖阳下的咖啡馆</a></li>
-                    <li><a href="#">CSS Grid布局完全指南</a></li>
-                    <li><a href="#">一个人的西藏之旅</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-widget">
-                <h3 class="widget-title">分类标签</h3>
-                <div class="category-tags">
-                    <a href="#life">生活感悟</a>
-                    <a href="#travel">旅行游记</a>
-                    <a href="#tech">技术分享</a>
-                    <a href="#book">读书笔记</a>
-                    <a href="#photo">摄影作品</a>
-                    <a href="#music">音乐推荐</a>
-                </div>
-            </div>
-        </aside>
+    <!-- 全屏背景图容器 -->
+    <div class="background-container">
+        <!-- 
+            背景图路径配置：
+            1. 将你的背景图片命名为 background.jpg，放在 images/ 文件夹下
+            2. 背景图样式在 style.css 第 42-65 行配置
+            3. 如需使用在线图片，编辑 style.css 取消备用背景图的注释
+        -->
+        <div class="background-image"></div>
+        <!-- 背景图上的半透明遮罩，让文字更清晰 -->
+        <div class="overlay"></div>
     </div>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>关于博客</h3>
-                <p>山川随笔是一个记录生活、分享感悟的个人博客。在这里，你可以读到旅行故事、生活随笔和技术分享。</p>
-            </div>
-            <div class="footer-section">
-                <h3>快速链接</h3>
-                <ul>
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#life">生活感悟</a></li>
-                    <li><a href="#travel">旅行游记</a></li>
-                    <li><a href="#tech">技术分享</a></li>
-                    <li><a href="#about">关于我</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>联系方式</h3>
-                <ul class="contact-info">
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> hello@shanchuan.com</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 138-0000-0000</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 上海市浦东新区</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 山川随笔. All rights reserved. Designed with ❤️</p>
-        </div>
-    </footer>
+    <!-- 左上角博客标题 -->
+    <header class="site-header">
+        润泽的个人博客
+    </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const navList = document.getElementById('nav-list');
-            
-            menuToggle.addEventListener('click', function() {
-                navList.classList.toggle('active');
-            });
+    <!-- 右上角分类导航区域 -->
+    <nav class="category-nav" id="categoryNav">
+        <!-- 
+            分类导航将通过 JavaScript 动态生成
+            数据来源：notes-index.json 中的 categories 数组
+            每个分类会生成一个可点击的按钮
+        -->
+        <button class="nav-btn active" data-category="all">首页</button>
+    </nav>
 
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                    navList.classList.remove('active');
-                });
-            });
-        });
-    </script>
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 个人介绍区域（首页默认显示） -->
+        <section class="intro-section" id="introSection">
+            <div class="intro-card">
+                <h1 class="intro-title">欢迎来到我的博客</h1>
+                <p class="intro-text">
+                    谁说雪花不是花
+                </p>
+            </div>
+        </section>
+
+        <!-- 笔记列表区域（点击分类后显示） -->
+        <section class="notes-list-section" id="notesListSection" style="display: none;">
+            <div class="notes-list-card">
+                <h2 class="section-title" id="categoryTitle">分类名称</h2>
+                <ul class="notes-list" id="notesList">
+                    <!-- 笔记列表将通过 JavaScript 动态生成 -->
+                </ul>
+                <!-- 返回按钮 -->
+                <button class="back-btn" id="backBtn">← 返回首页</button>
+            </div>
+        </section>
+
+        <!-- 笔记内容区域（点击笔记标题后显示） -->
+        <section class="note-content-section" id="noteContentSection" style="display: none;">
+            <div class="note-content-card">
+                <button class="back-btn" id="backToListBtn">← 返回列表</button>
+                <h1 class="note-title" id="noteTitle">笔记标题</h1>
+                <hr class="divider">
+                <!-- Markdown 渲染后的内容会插入到这里 -->
+                <div class="note-body" id="noteBody">
+                    <!-- marked.js 解析后的 HTML 内容 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 外部 JavaScript 文件 -->
+    <script src="script.js"></script>
 </body>
 </html>
