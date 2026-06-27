@@ -1,0 +1,50 @@
+{
+  "categories": [
+    {
+      "name": "技术",
+      "folder": "notes/tech",
+      "notes": [
+        {
+          "title": "JavaScript 基础入门",
+          "file": "notes/tech/js-basics.md"
+        },
+        {
+          "title": "CSS Flexbox 布局详解",
+          "file": "notes/tech/css-flexbox.md"
+        },
+        {
+          "title": "Git 常用命令速查表",
+          "file": "notes/tech/git-commands.md"
+        }
+      ]
+    },
+    {
+      "name": "生活",
+      "folder": "notes/life",
+      "notes": [
+        {
+          "title": "我的读书清单 2026",
+          "file": "notes/life/reading-list-2026.md"
+        },
+        {
+          "title": "周末烹饪日记",
+          "file": "notes/life/cooking-diary.md"
+        }
+      ]
+    },
+    {
+      "name": "读书笔记",
+      "folder": "notes/reading",
+      "notes": [
+        {
+          "title": "《深入理解计算机系统》读书笔记",
+          "file": "notes/reading/csapp-notes.md"
+        },
+        {
+          "title": "《设计模式》核心思想总结",
+          "file": "notes/reading/design-patterns.md"
+        }
+      ]
+    }
+  ]
+}

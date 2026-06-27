@@ -1,0 +1,485 @@
+/* ============================================
+   全局样式与 CSS 变量
+   ============================================ */
+:root {
+    --primary-color: #3498db;
+    --primary-hover: #2980b9;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-white: rgba(255, 255, 255, 0.95);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ============================================
+   全屏背景图样式
+   ============================================ */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    /* 
+       背景图路径：images/background.jpg
+       如需更换背景图，替换该文件即可
+       或者使用在线图片（取消下一行注释，并注释掉当前 background-image）
+    */
+    background-image: url('images/background.jpg');
+    background-size: cover;        /* 覆盖整个容器 */
+    background-position: center;   /* 居中显示 */
+    background-repeat: no-repeat;  /* 不重复 */
+    background-attachment: fixed;  /* 固定背景，滚动时不动 */
+}
+
+/* 备用：如果本地图片加载失败，取消下面注释使用在线图片
+.background-image {
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&q=80');
+}
+*/
+
+/* 半透明遮罩层，让文字更清晰可读 */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);  /* 黑色半透明遮罩 */
+}
+
+/* ============================================
+   左上角博客标题
+   ============================================ */
+.site-header {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   右上角分类导航样式
+   ============================================ */
+.category-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    z-index: 100;
+    max-width: 60%;
+}
+
+.nav-btn {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    transition: var(--transition);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    text-shadow: none;
+}
+
+/* ============================================
+   主内容区域样式
+   ============================================ */
+.main-content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 60px;
+}
+
+/* 个人介绍卡片 - 磨砂透明效果 */
+.intro-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: var(--radius);
+    padding: 60px 40px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 0.6s ease;
+}
+
+.intro-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.intro-text {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.8;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 笔记列表卡片 - 磨砂透明效果 */
+.notes-list-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: var(--radius);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 0.6s ease;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 笔记列表 */
+.notes-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.notes-list li {
+    margin-bottom: 12px;
+}
+
+.note-link {
+    display: block;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    border-left: 4px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.note-link:hover {
+    border-left-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+
+/* 笔记内容卡片 - 磨砂透明效果 */
+.note-content-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: var(--radius);
+    padding: 40px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 0.6s ease;
+}
+
+.note-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.divider {
+    border: none;
+    border-top: 2px solid #eee;
+    margin-bottom: 25px;
+}
+
+/* Markdown 渲染后的内容样式 */
+.note-body {
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.8;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* markdown 内容中的标题 */
+.note-body h1, .note-body h2, .note-body h3 {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* markdown 内容中的标题 */
+.note-body h1 { font-size: 1.8rem; margin: 25px 0 15px; }
+.note-body h2 { font-size: 1.5rem; margin: 20px 0 12px; }
+.note-body h3 { font-size: 1.3rem; margin: 18px 0 10px; }
+
+/* markdown 内容中的段落 */
+.note-body p {
+    margin-bottom: 15px;
+}
+
+/* markdown 内容中的代码块 */
+.note-body pre {
+    background: rgba(40, 44, 52, 0.9);
+    color: #abb2bf;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 行内代码样式 - 亮色背景+鲜明文字 */
+.note-body code {
+    background: #fef3c7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "Consolas", "Monaco", monospace;
+    font-size: 0.9em;
+    color: #111;
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.note-body pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+/* markdown 内容中的引用块 */
+.note-body blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 10px 20px;
+    margin: 15px 0;
+    background: #f8f9fa;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-light);
+}
+
+/* markdown 内容中的列表 */
+.note-body ul, .note-body ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+
+.note-body li {
+    margin-bottom: 8px;
+}
+
+/* markdown 内容中的链接 */
+.note-body a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.note-body a:hover {
+    text-decoration: underline;
+}
+
+/* markdown 内容中的图片 */
+.note-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+/* markdown 内容中的表格 */
+.note-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.note-body th, .note-body td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.note-body th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+/* ============================================
+   返回按钮样式
+   ============================================ */
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    transition: var(--transition);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   页脚样式
+   ============================================ */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+    color: var(--text-light);
+    z-index: 50;
+}
+
+/* ============================================
+   动画效果
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   响应式设计 - 移动端适配
+   ============================================ */
+@media (max-width: 768px) {
+    /* 导航区域在移动端调整 */
+    .category-nav {
+        top: 10px;
+        right: 10px;
+        max-width: 75%;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    /* 主内容区域在移动端调整 */
+    .main-content {
+        padding: 70px 15px 60px;
+    }
+
+    .intro-card {
+        padding: 40px 25px;
+    }
+
+    .intro-title {
+        font-size: 1.8rem;
+    }
+
+    .intro-text {
+        font-size: 1rem;
+    }
+
+    .notes-list-card,
+    .note-content-card {
+        padding: 25px 20px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .note-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* 超小屏幕进一步调整 */
+    .category-nav {
+        position: relative;
+        top: 0;
+        right: 0;
+        max-width: 100%;
+        justify-content: center;
+        padding: 15px 10px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+
+    .main-content {
+        padding: 20px 10px 60px;
+    }
+}
